@@ -1,6 +1,6 @@
 [project]
 name = "er-aws-rds-proxy"
-version = "0.1.0"
+version = "0.2.0"
 description = "ERv2 module for managing AWS RDS Proxy clusters"
 authors = [{ name = "AppSRE", email = "sd-app-sre@redhat.com" }]
 license = { text = "Apache 2.0" }
