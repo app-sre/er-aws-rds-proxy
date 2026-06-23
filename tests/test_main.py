@@ -1,12 +1,17 @@
+from __future__ import annotations
+
 import json
-from pathlib import Path
+from typing import TYPE_CHECKING
 
 import pytest
 from external_resources_io.config import EnvVar
 
-from er_aws_rds_proxy.__main__ import get_ai_input  # noqa: PLC2701
+from er_aws_rds_proxy.__main__ import get_ai_input
 from er_aws_rds_proxy.app_interface_input import AppInterfaceInput
 from tests.conftest import build_input_data
+
+if TYPE_CHECKING:
+    from pathlib import Path
 
 
 @pytest.fixture(autouse=True)

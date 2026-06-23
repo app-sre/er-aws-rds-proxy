@@ -7,7 +7,7 @@ External Resources module to provision and manage AWS RDS Proxy instances with a
 * Terraform
 * AWS provider
 * Random provider
-* Python 3.12
+* Python 3.14
 * Pydantic
 
 ## Architecture
