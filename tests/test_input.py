@@ -1,10 +1,10 @@
 import pytest
 from pydantic import ValidationError
 
-from er_aws_rds_proxy.app_interface_input import AppInterfaceInput
+from er_aws_rds_proxy.app_interface_input import AppInterfaceInput, Auth
 from tests.conftest import build_input_data
 
-# ruff: noqa: S105, PLR2004
+# ruff: noqa: S105, S106
 
 
 def test_auth_iam_auth_defaults_to_disabled_with_secrets() -> None:
@@ -41,7 +41,7 @@ def test_client_password_auth_type_defaults_for_postgres() -> None:
 
 def test_client_password_auth_type_explicit_value_preserved() -> None:
     """Test that explicitly set client_password_auth_type is preserved."""
-    data = build_input_data(client_password_auth_type="POSTGRES_MD5")  # noqa: S106
+    data = build_input_data(client_password_auth_type="POSTGRES_MD5")
     model = AppInterfaceInput.model_validate(data)
     assert model.data.auth[0].client_password_auth_type == "POSTGRES_MD5"
 
@@ -56,8 +56,17 @@ def test_multiple_auth_configs() -> None:
     )
 
     model = AppInterfaceInput.model_validate(data)
-    assert len(model.data.auth) == 2
-    assert model.data.auth[0].iam_auth == "DISABLED"
-    assert model.data.auth[0].client_password_auth_type == "POSTGRES_SCRAM_SHA_256"
-    assert model.data.auth[1].iam_auth == "DISABLED"
-    assert model.data.auth[1].client_password_auth_type == "POSTGRES_SCRAM_SHA_256"
+    assert model.data.auth == [
+        Auth(
+            auth_scheme="SECRETS",
+            secret_name="secret-1",
+            iam_auth="DISABLED",
+            client_password_auth_type="POSTGRES_SCRAM_SHA_256",
+        ),
+        Auth(
+            auth_scheme="SECRETS",
+            secret_name="secret-2",
+            iam_auth="DISABLED",
+            client_password_auth_type="POSTGRES_SCRAM_SHA_256",
+        ),
+    ]

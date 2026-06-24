@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING
 
 from boto3 import Session
 from botocore.config import Config as BotocoreConfig
 
 if TYPE_CHECKING:
     from collections.abc import Mapping, Sequence
+    from typing import Any
 
     from mypy_boto3_ec2.client import EC2Client
     from mypy_boto3_ec2.type_defs import SecurityGroupTypeDef, SubnetTypeDef

@@ -1,6 +1,11 @@
-from unittest.mock import MagicMock
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
 
 import pytest
+
+if TYPE_CHECKING:
+    from unittest.mock import MagicMock
 
 from hooks_lib.aws_api import AWSApi
 

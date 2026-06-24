@@ -1,12 +1,18 @@
-from collections.abc import Iterator
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
 from unittest.mock import MagicMock, patch
 
 import pytest
 from botocore.exceptions import ClientError
 from external_resources_io.terraform import Action, ResourceChange
 
-from er_aws_rds_proxy.app_interface_input import AppInterfaceInput
 from hooks.post_plan import RdsProxyPlanValidator, TerraformJsonPlanParser
+
+if TYPE_CHECKING:
+    from collections.abc import Iterator
+
+    from er_aws_rds_proxy.app_interface_input import AppInterfaceInput
 
 
 @pytest.fixture

@@ -12,12 +12,13 @@ from external_resources_io.input import parse_model, read_input_from_file
 from external_resources_io.log import setup_logging
 from external_resources_io.terraform import (
     Action,
-    ResourceChange,
     TerraformJsonPlanParser,
 )
 
 if TYPE_CHECKING:
     from collections.abc import Sequence
+
+    from external_resources_io.terraform import ResourceChange
 
 from er_aws_rds_proxy.app_interface_input import AppInterfaceInput
 from hooks_lib.aws_api import AWSApi
@@ -111,7 +112,7 @@ class RdsProxyPlanValidator:
         return not self.errors
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     setup_logging()
     app_interface_input = parse_model(AppInterfaceInput, read_input_from_file())
     logger.info("Running RDS Proxy terraform plan validation")
