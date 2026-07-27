@@ -4,7 +4,7 @@ from pydantic import ValidationError
 from er_aws_rds_proxy.app_interface_input import AppInterfaceInput, Auth
 from tests.conftest import build_input_data
 
-# ruff: noqa: S105, S106
+# ruff: file-ignore[hardcoded-password-string, hardcoded-password-func-arg]
 
 
 def test_auth_iam_auth_defaults_to_disabled_with_secrets() -> None:
