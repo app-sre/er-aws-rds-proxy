@@ -4,7 +4,7 @@ from pydantic import ValidationError
 from er_aws_rds_proxy.app_interface_input import AppInterfaceInput
 from tests.conftest import build_input_data
 
-# ruff: noqa: S105, PLR2004
+# ruff: file-ignore[hardcoded-password-string, magic-value-comparison]
 
 
 def test_auth_iam_auth_defaults_to_disabled_with_secrets() -> None:
@@ -41,7 +41,7 @@ def test_client_password_auth_type_defaults_for_postgres() -> None:
 
 def test_client_password_auth_type_explicit_value_preserved() -> None:
     """Test that explicitly set client_password_auth_type is preserved."""
-    data = build_input_data(client_password_auth_type="POSTGRES_MD5")  # noqa: S106
+    data = build_input_data(client_password_auth_type="POSTGRES_MD5")  # ruff: ignore[hardcoded-password-func-arg]
     model = AppInterfaceInput.model_validate(data)
     assert model.data.auth[0].client_password_auth_type == "POSTGRES_MD5"
 

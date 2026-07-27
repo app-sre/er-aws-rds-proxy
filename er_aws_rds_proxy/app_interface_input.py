@@ -1,8 +1,11 @@
-from collections.abc import Sequence
-from typing import Self
+from typing import TYPE_CHECKING, Self
 
-from external_resources_io.input import AppInterfaceProvision
 from pydantic import BaseModel, Field, model_validator
+
+if TYPE_CHECKING:
+    from collections.abc import Sequence
+
+    from external_resources_io.input import AppInterfaceProvision
 
 
 class Auth(BaseModel):
@@ -128,7 +131,7 @@ class RdsProxyData(BaseModel):
                 auth_item.client_password_auth_type is None
                 and self.engine_family == "POSTGRESQL"
             ):
-                auth_item.client_password_auth_type = "POSTGRES_SCRAM_SHA_256"  # noqa: S105
+                auth_item.client_password_auth_type = "POSTGRES_SCRAM_SHA_256"  # ruff: ignore[hardcoded-password-string]
         return self
 
 

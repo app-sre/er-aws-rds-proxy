@@ -1,12 +1,16 @@
-from collections.abc import Iterator
+from typing import TYPE_CHECKING
 from unittest.mock import MagicMock, patch
 
 import pytest
 from botocore.exceptions import ClientError
 from external_resources_io.terraform import Action, ResourceChange
 
-from er_aws_rds_proxy.app_interface_input import AppInterfaceInput
 from hooks.post_plan import RdsProxyPlanValidator, TerraformJsonPlanParser
+
+if TYPE_CHECKING:
+    from collections.abc import Iterator
+
+    from er_aws_rds_proxy.app_interface_input import AppInterfaceInput
 
 
 @pytest.fixture
@@ -235,7 +239,7 @@ def test_rds_proxy_plan_validator_validate_failure_security_group_wrong_vpc(
 def test_rds_proxy_plan_validator_no_changes(
     ai_input: AppInterfaceInput,
     mock_terraform_plan_parser: MagicMock,
-    mock_aws_api: MagicMock,  # noqa: ARG001
+    mock_aws_api: MagicMock,  # ruff: ignore[unused-function-argument]
 ) -> None:
     """Test validation when there are no resource changes."""
     mock_terraform_plan_parser.plan.resource_changes = []
@@ -248,7 +252,7 @@ def test_rds_proxy_plan_validator_no_changes(
 def test_rds_proxy_plan_validator_non_create_action(
     ai_input: AppInterfaceInput,
     mock_terraform_plan_parser: MagicMock,
-    mock_aws_api: MagicMock,  # noqa: ARG001
+    mock_aws_api: MagicMock,  # ruff: ignore[unused-function-argument]
 ) -> None:
     """Test validation with non-create actions (update/delete)."""
     subnets = ["subnet-1", "subnet-2"]
@@ -276,7 +280,7 @@ def test_rds_proxy_plan_validator_non_create_action(
 def test_rds_proxy_plan_validator_rds_proxy_instance_updates(
     ai_input: AppInterfaceInput,
     mock_terraform_plan_parser: MagicMock,
-    mock_aws_api: MagicMock,  # noqa: ARG001
+    mock_aws_api: MagicMock,  # ruff: ignore[unused-function-argument]
 ) -> None:
     """Test the rds_proxy_instance_updates property."""
     mock_terraform_plan_parser.plan.resource_changes = [
