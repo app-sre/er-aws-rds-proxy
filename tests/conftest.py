@@ -45,7 +45,7 @@ DEFAULT_PROVISION: dict = {
 }
 
 
-def build_input_data(  # noqa: PLR0913
+def build_input_data(  # ruff: ignore[too-many-arguments]
     *,
     auth_scheme: str | None = None,
     client_password_auth_type: str | None = None,
@@ -54,7 +54,7 @@ def build_input_data(  # noqa: PLR0913
     secret_name: str | None = None,
     username: str | None = None,
     auth: list[dict] | None = None,
-    **kwargs: Any,  # noqa: ANN401
+    **kwargs: Any,  # ruff: ignore[any-type]
 ) -> dict:
     """Build test input data with optional overrides.
 

@@ -128,7 +128,7 @@ class RdsProxyData(BaseModel):
                 auth_item.client_password_auth_type is None
                 and self.engine_family == "POSTGRESQL"
             ):
-                auth_item.client_password_auth_type = "POSTGRES_SCRAM_SHA_256"  # noqa: S105
+                auth_item.client_password_auth_type = "POSTGRES_SCRAM_SHA_256"  # ruff: ignore[hardcoded-password-string]
         return self
 
 
